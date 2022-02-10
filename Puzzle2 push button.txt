@@ -1,0 +1,63 @@
+from m5stack import *
+from m5ui import *
+from uiflow import *
+
+setScreenColor(0x222222)
+
+
+count = None
+
+
+
+from numbers import Number
+
+
+# When the button is pressed, start counting
+def plus1():
+  global count
+  count = (count if isinstance(count, Number) else 0) + 1
+
+# When the button is pressed 4 times, change screen color and print out messages
+def dosomething():
+  global count
+  if count == 4:
+    setScreenColor(0x33cc00)
+    lcd.clear()
+    lcd.font(lcd.FONT_DejaVu56)
+    lcd.print('SOS', 100, 20, 0xff0000)
+    lcd.font(lcd.FONT_DejaVu24)
+    lcd.print('HELP IS ON THE WAY', 30, 100, 0xff0000)
+    lcd.font(lcd.FONT_DejaVu56)
+    lcd.print('SOS', 100, 160, 0xff0000)
+
+# To reset if button A isn't pressed
+def reset():
+  global count
+  count = 0
+  setScreenColor(0xff0000)
+
+
+def buttonA_wasPressed():
+  global count
+  plus1()
+  dosomething()
+  pass
+btnA.wasPressed(buttonA_wasPressed)
+
+def buttonB_wasPressed():
+  global count
+  reset()
+  dosomething()
+  pass
+btnB.wasPressed(buttonB_wasPressed)
+
+def buttonC_wasPressed():
+  global count
+  reset()
+  dosomething()
+  pass
+btnC.wasPressed(buttonC_wasPressed)
+
+
+count = 0
+setScreenColor(0xff0000)
